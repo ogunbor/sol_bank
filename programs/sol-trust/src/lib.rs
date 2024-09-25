@@ -1,3 +1,4 @@
+use crate::rewards::Rewards;
 use anchor_lang::prelude::*;
 
 pub mod contexts;
@@ -30,6 +31,11 @@ pub mod sol_trust {
 
     pub fn mature_close(ctx: Context<MatureClose>) -> Result<()> {
         ctx.accounts.mature_close()?;
+        Ok(())
+    }
+
+    pub fn rewards(ctx: Context<Rewards>) -> Result<()> {
+        ctx.accounts.rewards()?;
         Ok(())
     }
 }

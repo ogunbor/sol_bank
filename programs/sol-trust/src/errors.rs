@@ -14,4 +14,8 @@ pub enum VaultError {
     DepositTooSmall,
     #[msg("The vault is expired already")]
     VaultExpired,
+    #[msg("You dont have access to rewards")]
+    NoRewardsAccess,
+    #[msg("Failed to CPI")]
+    CPIFailed,
 }

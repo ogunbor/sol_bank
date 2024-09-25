@@ -17,7 +17,7 @@ pub fn calculate_reward(vault_state: &VaultState) -> Result<u64> {
     let amount_factor = amount as f64;
 
     // Calculate the reward (in SOL, scaled to lamports)
-    let reward = time_factor * amount_factor * reward_rate * 1_000_000_000.0;
+    let reward = time_factor * amount_factor * reward_rate / 1_000_000_000.0;
 
     // Return the reward as an integer (in lamports)
     Ok(reward as u64)

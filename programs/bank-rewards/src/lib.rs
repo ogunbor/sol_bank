@@ -2,7 +2,9 @@ use anchor_lang::{
     prelude::*,
     system_program::{transfer, Transfer},
 };
+
 declare_id!("CtNhstCC9DPUMYZKvaM7uMFGxJeHQLxBwLSY3qHarTf5");
+
 #[program]
 pub mod bank_rewards {
     use super::*;
@@ -52,7 +54,6 @@ pub struct Deposit<'info> {
     #[account(
         mut,
         seeds = [b"vault", vault_state.key().as_ref()], 
-        // Our program will be able sign transactions on behalf of the vault account.
         bump = vault_state.vault_bump,
     )]
     pub vault: SystemAccount<'info>,

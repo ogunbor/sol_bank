@@ -61,7 +61,7 @@ describe("sol-trust", () => {
 
   it("Initialize", async () => {
     try {
-      const lockDuration = new BN(0); 
+      const lockDuration = new BN(1); 
 
       const tx = await program.methods
         .initialize(lockDuration)
@@ -103,53 +103,97 @@ describe("sol-trust", () => {
     }
   });
 
-  //  it("PrematureClose", async () => {
-  //   try {
-  //     const tx = await program.methods
-  //       .prematureClose() // Make sure this method is properly defined in your Anchor program
-  //       .accountsStrict({
-  //         user: user.publicKey,
-  //         vault: vault,
-  //         vaultState: state,
-  //         adminWallet: admin.publicKey, // Pass the admin wallet public key
-  //         systemProgram: SystemProgram.programId,
-  //       })
-  //       .signers([user])
-  //       .rpc({ skipPreflight: true })
-  //       .then(confirmTx);
+//   //  it("PrematureClose", async () => {
+//   //   try {
+//   //     const tx = await program.methods
+//   //       .prematureClose() // Make sure this method is properly defined in your Anchor program
+//   //       .accountsStrict({
+//   //         user: user.publicKey,
+//   //         vault: vault,
+//   //         vaultState: state,
+//   //         adminWallet: admin.publicKey, // Pass the admin wallet public key
+//   //         systemProgram: SystemProgram.programId,
+//   //       })
+//   //       .signers([user])
+//   //       .rpc({ skipPreflight: true })
+//   //       .then(confirmTx);
 
-  //     console.log("Your transaction signature", tx);
-  //   } catch (e) {
-  //     console.error//(e);
-  //     throw e;
-  //   }
-  // });
+//   //     console.log("Your transaction signature", tx);
+//   //   } catch (e) {
+//   //     console.error//(e);
+//   //     throw e;
+//   //   }
+//   //  });
+  
+   
+// // it("MatureClose", async () => {
+// //   try {
+// //     const tx = await program.methods
+// //       .matureClose() 
+// //       .accountsStrict({
+// //         user: user.publicKey, 
+// //         vault: vault,
+// //         vaultState: state,
+// //         systemProgram: SystemProgram.programId,
+// //       })
+// //       .signers([user])
+// //       .rpc({ skipPreflight: true })
+// //       .then(confirmTx);
 
-it("MatureClose", async () => {
-  try {
-    const bankRewardsProgramId = new PublicKey("BBoAqxz7AfBvtkDgj2XtjG9kMmUEciSg6xmyLCJmzNGY"); 
+// //     console.log("Your transaction signature", tx);
+// //   } catch (e) {
+// //     console.error(e);
+// //     throw e;
+// //   }
+// // });
+
+
+// // it("MatureClose", async () => {
+// //   try {
+// //     const bankRewardsProgramId = new PublicKey("BBoAqxz7AfBvtkDgj2XtjG9kMmUEciSg6xmyLCJmzNGY"); 
     
-    const tx = await program.methods
-      .matureClose()
-      .accountsStrict({
-        user: user.publicKey,
-        vault: vault,
-        vaultState: state,
-        bankVault: vault, 
-        bankVaultState: state, 
-        bankRewardsProgram: bankRewardsProgramId, 
-        systemProgram: SystemProgram.programId,
-      })
-      .signers([user])
-      .rpc();
+// //     const tx = await program.methods
+// //       .matureClose()
+// //       .accountsStrict({
+// //         user: user.publicKey,
+// //         vault: vault,
+// //         vaultState: state,
+// //         bankVault: vault, 
+// //         bankVaultState: state, 
+// //         bankRewardsProgram: bankRewardsProgramId, 
+// //         systemProgram: SystemProgram.programId,
+// //       })
+// //       .signers([user])
+// //       .rpc();
     
-    console.log("Mature close executed with transaction signature", tx);
-  } catch (e) {
-    console.error(e);
-    throw e;
-  }
-});
+// //     console.log("Mature close executed with transaction signature", tx);
+// //   } catch (e) {
+// //     console.error(e);
+// //     throw e;
+// //   }
+// // });
 
+  it("Claim Rewards", async () => {
+    try {
+      const tx = await program.methods
+        .rewards() 
+        .accountsStrict({
+          user: user.publicKey, 
+          vault: vault,
+          vaultState: state,
+          bankRewardsProgram: new PublicKey("CtNhstCC9DPUMYZKvaM7uMFGxJeHQLxBwLSY3qHarTf5"), 
+          systemProgram: SystemProgram.programId,
+        })
+        .signers([user])
+        .rpc({ skipPreflight: true })
+        .then(confirmTx);
+
+      console.log("Claimed rewards successfully with transaction signature", tx);
+    } catch (e) {
+      console.error("Claim rewards failed:", e);
+      throw e;
+    }
+  });
  
 });
 
