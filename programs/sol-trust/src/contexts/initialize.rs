@@ -24,8 +24,7 @@ pub struct Initialize<'info> {
 
 impl<'info> Initialize<'info> {
     pub fn initialize(&mut self, lock_duration: i64, bumps: &InitializeBumps) -> Result<()> {
-        // let min_lock_duration: i64 = 2_592_000; // 2,592,000 seconds ( 1 month )
-        let min_lock_duration: i64 = 0;
+        let min_lock_duration: i64 = 2_592_000; // 2,592,000 seconds ( 1 month )
 
         if lock_duration < min_lock_duration {
             return Err(VaultError::TimeTooShort.into());
